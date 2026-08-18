@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { media } from "@/data/media";
 
@@ -120,7 +121,7 @@ export function CeoWelcomePage() {
             You are in the right place. After discovering Sara Mouhsine Carvajal's leadership profile, choose the company website you want to visit.
           </p>
           <div className="profile-actions destination-actions" aria-label="Website choices">
-            <button type="button" onClick={() => showComingSoon("Agrupa Marca")}>Visit Agrupa Marca website</button>
+            <Link className="website-link-button" href="/agrupa-marca">Visit Agrupa Marca website</Link>
             <button type="button" onClick={() => showComingSoon("MAGOPCO")}>Visit MAGOPCO website</button>
           </div>
           <p className="coming-soon-message" role="status" aria-live="polite">{message}</p>

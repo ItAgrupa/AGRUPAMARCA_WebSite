@@ -1,7 +1,7 @@
 node_modules/
 .next/
 out/
-Images/
+/Images/
 tsconfig.tsbuildinfo
 .env*
 !.env.example
