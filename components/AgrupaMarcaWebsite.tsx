@@ -76,6 +76,15 @@ const localizedCopy = {
     process: ["How we work", "From field reception to careful preparation.", "Every step protects freshness and creates a reliable product journey: reception, selection, packing, control and preparation for dispatch."],
     processSteps: ["Reception", "Selection", "Packing & control", "Dispatch"],
     responsibility: ["Responsibility", "Growing with people and place in mind.", "Agrupa Marca's identity is connected to the region, its teams and the people behind agricultural production."],
+    responsibilityShowcase: {
+      title: "A Moroccan grower with",
+      highlight: "global standards",
+      cards: [
+        ["Grow With Us", "For growers and partners, Agrupa Marca offers practical collaboration, dependable planning and long-term relationships rooted in Souss-Massa."],
+        ["Trusted Quality", "Choose Agrupa Marca for rigorous standards, careful packing, traceability and a shared commitment to freshness from field to delivery."],
+        ["Global Reach", "For partners and professional buyers, our export network connects Moroccan production with international markets through organized, reliable operations."],
+      ],
+    },
     contact: ["Contact", "Build a fresh produce partnership with Agrupa Marca.", "For commercial, institutional or partnership conversations, connect with the Agrupa Marca team.", "Return to CEO gateway"],
     footer: ["Moroccan fresh produce prepared for international markets.", "Products", "Quality", "CEO profile", "All rights reserved.", "Privacy policy", "Contact us"],
     contactModal: ["Contact Agrupa Marca", "Address", "Email", "Phone", "Fax", "Close contact information"],
@@ -136,6 +145,15 @@ const localizedCopy = {
     process: ["Cómo trabajamos", "De la recepción en campo a una preparación cuidadosa.", "Cada etapa protege la frescura: recepción, selección, envasado, control y preparación para la expedición."],
     processSteps: ["Recepción", "Selección", "Envasado y control", "Expedición"],
     responsibility: ["Responsabilidad", "Crecer pensando en las personas y el territorio.", "La identidad de Agrupa Marca está unida a la región, a sus equipos y a las personas que hacen posible la producción agrícola."],
+    responsibilityShowcase: {
+      title: "Un productor marroquí con",
+      highlight: "estándares globales",
+      cards: [
+        ["Crezca con nosotros", "Para productores y socios, Agrupa Marca ofrece colaboración práctica, planificación fiable y relaciones duraderas con raíces en Souss-Massa."],
+        ["Calidad de confianza", "Elija Agrupa Marca por sus estándares rigurosos, su envasado cuidadoso, la trazabilidad y su compromiso con la frescura del campo a la entrega."],
+        ["Alcance global", "Para socios y compradores profesionales, nuestra red de exportación conecta la producción marroquí con los mercados internacionales mediante operaciones organizadas y fiables."],
+      ],
+    },
     contact: ["Contacto", "Construya una colaboración hortofrutícola con Agrupa Marca.", "Para conversaciones comerciales, institucionales o de colaboración, contacte con el equipo de Agrupa Marca.", "Volver al espacio de la CEO"],
     footer: ["Productos frescos marroquíes preparados para los mercados internacionales.", "Productos", "Calidad", "Perfil de la CEO", "Todos los derechos reservados.", "Política de privacidad", "Contáctenos"],
     contactModal: ["Contactar con Agrupa Marca", "Dirección", "Email", "Teléfono", "Fax", "Cerrar información de contacto"],
@@ -196,6 +214,15 @@ const localizedCopy = {
     process: ["طريقة عملنا", "من الاستلام في الحقول إلى التجهيز بعناية.", "تحمي كل مرحلة نضارة المنتج: الاستلام والانتقاء والتعبئة والمراقبة والاستعداد للإرسال."],
     processSteps: ["الاستلام", "الانتقاء", "التعبئة والمراقبة", "الإرسال"],
     responsibility: ["المسؤولية", "ننمو مع الاهتمام بالإنسان والمجال.", "ترتبط هوية أغروبا ماركا بالمنطقة وفرق العمل والأشخاص الذين يقفون وراء الإنتاج الفلاحي."],
+    responsibilityShowcase: {
+      title: "منتج مغربي وفق",
+      highlight: "معايير عالمية",
+      cards: [
+        ["انمُ معنا", "تقدم أغروبا ماركا للمنتجين والشركاء تعاونا عمليا وتخطيطا موثوقا وعلاقات طويلة الأمد راسخة في سوس ماسة."],
+        ["جودة موثوقة", "اختر أغروبا ماركا بفضل المعايير الصارمة والتعبئة الدقيقة وإمكانية التتبع والالتزام المشترك بالنضارة من الحقل إلى التسليم."],
+        ["انتشار عالمي", "تربط شبكة التصدير الخاصة بنا الإنتاج المغربي بالأسواق الدولية من خلال عمليات منظمة وموثوقة تخدم الشركاء والمشترين المهنيين."],
+      ],
+    },
     contact: ["اتصل بنا", "ابنِ شراكة في المنتجات الطازجة مع أغروبا ماركا.", "للتواصل التجاري أو المؤسساتي أو من أجل الشراكة، تواصل مع فريق أغروبا ماركا.", "العودة إلى بوابة المديرة التنفيذية"],
     footer: ["منتجات مغربية طازجة مجهزة للأسواق الدولية.", "المنتجات", "الجودة", "ملف المديرة التنفيذية", "جميع الحقوق محفوظة.", "سياسة الخصوصية", "اتصل بنا"],
     contactModal: ["اتصل بأغروبا ماركا", "العنوان", "البريد الإلكتروني", "الهاتف", "الفاكس", "إغلاق معلومات الاتصال"],
@@ -304,10 +331,14 @@ export function AgrupaMarcaWebsite() {
             </button>
             <div>
               {languages.map((item) => (
-                <button type="button" key={item.code} onClick={() => changeLanguage(item)}>
+                <button type="button" key={item.code} onClick={() => changeLanguage(item)} aria-current={language.code === item.code ? "true" : undefined}>
                   <LanguageFlag code={item.code} />
                   {item.label}
-                  {language.code === item.code ? <strong>{copy.selected}</strong> : null}
+                  {language.code === item.code ? (
+                    <strong className="language-selected-mark" title={copy.selected} aria-hidden="true">
+                      <svg viewBox="0 0 20 20"><path d="m4.5 10.2 3.3 3.3 7.7-7.7" /></svg>
+                    </strong>
+                  ) : null}
                 </button>
               ))}
             </div>
@@ -334,8 +365,8 @@ export function AgrupaMarcaWebsite() {
           </h1>
           <span>{copy.hero.text}</span>
           <div className="agrupa-hero-actions">
-            <a href="#products">{copy.hero.primary} <span aria-hidden="true">&#8599;</span></a>
-            <a href="#quality">{copy.hero.secondary} <span aria-hidden="true">&#8599;</span></a>
+            <a href="#products"><span className="hero-action-label">{copy.hero.primary}</span><span className="hero-action-icon" aria-hidden="true">&#8599;</span></a>
+            <a href="#quality"><span className="hero-action-label">{copy.hero.secondary}</span><span className="hero-action-icon" aria-hidden="true">&#8599;</span></a>
           </div>
         </div>
         <a className="agrupa-scroll-cue" href="#company" aria-label="Scroll to discover Agrupa Marca">
@@ -429,14 +460,29 @@ export function AgrupaMarcaWebsite() {
         </div>
       </section>
 
-      <section className="agrupa-responsibility agrupa-shell" id="responsibility">
-        <div>
-          <p className="agrupa-kicker">{copy.responsibility[0]}</p>
-          <h2>{copy.responsibility[1]}</h2>
-          <p>{copy.responsibility[2]}</p>
-        </div>
-        <div className="responsibility-photo">
-          <Image src="/images/agrupa-marca/social-responsibility.jpg" alt="Agrupa Marca social responsibility activity" fill sizes="(max-width: 900px) 100vw, 40vw" />
+      <section className="agrupa-responsibility-showcase" id="responsibility">
+        <div className="agrupa-shell">
+          <header className="responsibility-showcase-head">
+            <h2>{copy.responsibilityShowcase.title} <span>{copy.responsibilityShowcase.highlight}</span></h2>
+          </header>
+          <div className="responsibility-showcase-grid">
+            {copy.responsibilityShowcase.cards.map(([title, text], index) => {
+              const images = [
+                "/images/agrupa-marca/showcase/why-grow-with-us-agrupa-marca.png",
+                "/images/agrupa-marca/showcase/why-trusted-quality-agrupa-marca.png",
+                "/images/agrupa-marca/showcase/why-global-reach-agrupa-marca.png",
+              ];
+              return (
+                <article key={title}>
+                  <div className={`responsibility-card-image responsibility-card-image-${index + 1}`}>
+                    <Image src={images[index]} alt={title} fill sizes="(max-width: 760px) 100vw, 390px" />
+                  </div>
+                  <h3>{title}</h3>
+                  <p>{text}</p>
+                </article>
+              );
+            })}
+          </div>
         </div>
       </section>
 
