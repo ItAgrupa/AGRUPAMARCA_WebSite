@@ -250,6 +250,7 @@ function ProcessIcon({ index }: { index: number }) {
 
 export function AgrupaMarcaWebsite() {
   const [languageOpen, setLanguageOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [language, setLanguage] = useState(languages[0]);
   const [darkMode, setDarkMode] = useState(false);
   const [activeSection, setActiveSection] = useState("company");
@@ -312,7 +313,7 @@ export function AgrupaMarcaWebsite() {
 
   return (
     <main className={`agrupa-site ${darkMode ? "is-dark" : ""}`} lang={language.code.toLowerCase()} dir={isArabic ? "rtl" : "ltr"}>
-      <header className="agrupa-header">
+      <header className={`agrupa-header ${mobileMenuOpen ? "is-mobile-menu-open" : ""}`}>
         <Link href="/" className="agrupa-logo" aria-label="Back to Sara Mouhsine Carvajal gateway">
           <Image className="agrupa-mark" src="/images/agrupa-marca/inside-logo.png" alt="" width={38} height={38} priority />
           <span><strong>Agrupa</strong> Marca</span>
@@ -320,12 +321,12 @@ export function AgrupaMarcaWebsite() {
         <nav aria-label="Agrupa Marca navigation">
           {copy.nav.map((item, index) => {
             const target = navTargets[index];
-            return <a className={activeSection === target ? "is-active" : ""} href={`#${target}`} aria-current={activeSection === target ? "location" : undefined} onClick={() => setActiveSection(target)} key={target}>{item}</a>;
+            return <a className={activeSection === target ? "is-active" : ""} href={`#${target}`} aria-current={activeSection === target ? "location" : undefined} onClick={() => { setActiveSection(target); setMobileMenuOpen(false); }} key={target}>{item}</a>;
           })}
         </nav>
         <div className="agrupa-controls">
           <div className={`language-menu ${languageOpen ? "is-open" : ""}`}>
-            <button type="button" onClick={() => setLanguageOpen((value) => !value)} aria-expanded={languageOpen} aria-label={copy.selectLanguage}>
+            <button type="button" onClick={() => { setLanguageOpen((value) => !value); setMobileMenuOpen(false); }} aria-expanded={languageOpen} aria-label={copy.selectLanguage}>
               <LanguageFlag code={language.code} />
               <span>{language.code}</span>
             </button>
@@ -351,6 +352,13 @@ export function AgrupaMarcaWebsite() {
             )}
           </button>
         </div>
+        <button className="mobile-nav-toggle" type="button" onClick={() => { setMobileMenuOpen((value) => !value); setLanguageOpen(false); }} aria-expanded={mobileMenuOpen} aria-label={mobileMenuOpen ? "Close navigation" : "Open navigation"}>
+          {mobileMenuOpen ? (
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18" /></svg>
+          ) : (
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 7h14M5 12h14M5 17h14" /></svg>
+          )}
+        </button>
       </header>
 
       <section className="agrupa-hero">

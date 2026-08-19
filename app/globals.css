@@ -572,12 +572,15 @@ p {
 
 .agrupa-logo,
 .agrupa-header nav,
-.agrupa-controls {
+.agrupa-controls,
+.mobile-nav-toggle {
   pointer-events: auto;
   box-shadow: 0 10px 28px rgba(0, 0, 0, .13);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
+
+.mobile-nav-toggle { display: none; }
 
 .agrupa-logo {
   justify-self: start;
@@ -1979,27 +1982,61 @@ p {
 
 @media (max-width: 920px) {
   .agrupa-header {
-    top: 10px;
-    height: auto;
+    top: 12px;
+    width: calc(100% - 24px);
+    height: 52px;
     display: grid;
-    grid-template-columns: 1fr auto;
-    gap: .55rem;
+    grid-template-columns: auto 1fr auto auto;
+    gap: .45rem;
   }
   .agrupa-logo { grid-column: 1; grid-row: 1; }
-  .agrupa-controls { grid-column: 2; grid-row: 1; }
-  .agrupa-header nav {
-    width: 100%;
-    min-height: 46px;
-    grid-column: 1 / -1;
-    grid-row: 2;
-    justify-self: stretch;
-    justify-content: flex-start;
-    overflow-x: auto;
-    scrollbar-width: none;
+  .agrupa-controls { grid-column: 3; grid-row: 1; }
+  .mobile-nav-toggle {
+    width: 48px;
+    height: 48px;
+    grid-column: 4;
+    grid-row: 1;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: var(--am-nav);
+    color: white;
+    cursor: pointer;
   }
-  .agrupa-header nav::-webkit-scrollbar { display: none; }
-  .agrupa-header nav a { min-height: 38px; flex: 1 0 auto; justify-content: center; }
-  .agrupa-hero { padding-top: 9rem; }
+  .mobile-nav-toggle svg {
+    width: 21px;
+    height: 21px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.9;
+    stroke-linecap: round;
+  }
+  .agrupa-header nav {
+    position: absolute;
+    top: 58px;
+    left: auto;
+    right: 0;
+    width: min(220px, calc(100vw - 24px));
+    min-height: 0;
+    display: none;
+    grid-template-columns: 1fr;
+    gap: .15rem;
+    padding: .4rem;
+    border-radius: 18px;
+    overflow: visible;
+  }
+  .agrupa-header.is-mobile-menu-open nav { display: grid; }
+  .agrupa-header nav a {
+    min-height: 36px;
+    width: 100%;
+    padding-inline: .9rem;
+    justify-content: flex-start;
+    border-radius: 13px;
+    font-size: .7rem;
+  }
+  .agrupa-hero { padding-top: 6.5rem; }
   .agrupa-intro { grid-template-columns: 1fr; }
   .responsibility-showcase-grid { grid-template-columns: 1fr; }
   .process-showcase { grid-template-columns: 1fr; }
@@ -2014,17 +2051,29 @@ p {
 }
 
 @media (max-width: 620px) {
-  .agrupa-header { width: calc(100% - 20px); }
-  .agrupa-logo { min-height: 46px; font-size: .85rem; }
-  .agrupa-mark { width: 34px; height: 34px; }
-  .agrupa-header nav a { padding-inline: .85rem; font-size: .7rem; }
-  .agrupa-hero { min-height: 96svh; padding-inline: 1rem; }
-  .agrupa-hero-content h1 { font-size: clamp(2.35rem, 10.8vw, 3.4rem); }
+  .agrupa-header { width: calc(100% - 20px); gap: .35rem; }
+  .agrupa-logo { min-height: 44px; padding: .25rem .7rem .25rem .28rem; font-size: .78rem; }
+  .agrupa-mark { width: 32px; height: 32px; }
+  .agrupa-controls { padding: .2rem; }
+  .language-menu > button { min-height: 38px; padding-inline: .55rem; }
+  .theme-toggle { width: 38px; min-width: 38px; min-height: 38px; }
+  .mobile-nav-toggle { width: 44px; height: 44px; }
+  .agrupa-header nav { top: 54px; width: min(205px, calc(100vw - 20px)); }
+  .agrupa-header nav a { min-height: 35px; padding-inline: .8rem; font-size: .68rem; }
+  .agrupa-hero { min-height: 100svh; padding: 6.25rem 1.15rem 4.5rem; }
+  .agrupa-hero-media img { object-position: 58% center; }
+  .agrupa-hero-content p { margin-bottom: .7rem; font-size: .58rem; line-height: 1.45; }
+  .agrupa-hero-content h1 { max-width: 410px; font-size: clamp(2.12rem, 9.5vw, 2.65rem); line-height: 1.12; }
   .agrupa-hero-content h1 span { border-radius: 8px; }
+  .agrupa-hero-content > span { margin: 1.15rem auto 1.25rem; font-size: .84rem; line-height: 1.6; }
   .agrupa-hero-actions { flex-direction: column; align-items: stretch; }
   .agrupa-hero-content a,
-  .agrupa-hero-content a + a { min-width: 0; }
+  .agrupa-hero-content a + a,
+  .agrupa-site[dir="rtl"] .agrupa-hero-content a,
+  .agrupa-site[dir="rtl"] .agrupa-hero-content a + a { width: 100%; min-width: 0; min-height: 52px; }
+  .agrupa-hero-content .hero-action-icon { width: 40px; height: 40px; flex-basis: 40px; }
   .agrupa-hero-content .hero-action-label { white-space: normal; }
+  .agrupa-scroll-cue { bottom: .8rem; transform: translateX(-50%) scale(.86); }
   .agrupa-stats,
   .product-grid { grid-template-columns: 1fr; }
   .agrupa-products .agrupa-shell { width: min(100% - 1.5rem, 1230px); }
@@ -2050,6 +2099,19 @@ p {
   .contact-modal { padding: 2rem 1.35rem; border-radius: 24px; }
   .contact-modal-grid { grid-template-columns: 1fr; gap: 0; }
   .contact-modal-grid .contact-address { grid-row: auto; }
+}
+
+@media (max-width: 520px) {
+  .company-process-steps { grid-template-columns: 1fr; gap: 2.4rem; }
+  .agrupa-company-process .company-process-steps h3 { min-height: 0; }
+  .company-process-steps article p { max-width: 240px; }
+}
+
+@media (max-width: 390px) {
+  .agrupa-logo > span:last-child { display: none; }
+  .agrupa-logo { padding-right: .3rem; }
+  .language-menu > button span { display: none; }
+  .language-menu > button { padding-inline: .48rem; }
 }
 
 @media (max-width: 420px) {
