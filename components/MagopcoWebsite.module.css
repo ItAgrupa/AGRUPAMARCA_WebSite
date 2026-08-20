@@ -487,14 +487,14 @@
 .ctaBerryTwo i { top: calc(50% - 29px); left: calc(50% - 29px); width: 58px; height: 58px; transform: rotate(calc(var(--n) * 51.43deg)) translateY(-84px) rotate(calc(var(--n) * -51.43deg)); }
 
 .footer { position: relative; padding: 80px max(4vw, 28px) 30px; overflow: hidden; background: var(--surface); }
-.footerTop { width: min(1100px, 100%); display: grid; justify-items: center; gap: 18px; margin: 0 auto; text-align: center; }
-.footerBrand { position: relative; width: 170px; height: 115px; display: block; overflow: hidden; }
-.footerBrand img { position: absolute; width: 170px; height: 170px; top: -18px; left: 0; object-fit: contain; }
+.footerTop { position: relative; z-index: 2; width: min(1100px, 100%); display: grid; justify-items: center; gap: 18px; margin: 0 auto; text-align: center; }
+.footerBrand { width: 180px; height: 158px; display: grid; place-items: center; }
+.footerBrand img { position: static; width: 154px; height: 154px; object-fit: contain; }
 .footerTop > p { max-width: 520px; color: var(--muted); font-size: .87rem; }
 .footerTop nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 28px; margin-top: 12px; color: var(--muted); font-size: .73rem; font-weight: 700; }
 .footerTop nav a:hover { color: var(--purple); }
-.footerWord { margin-top: 35px; background: linear-gradient(180deg, color-mix(in srgb, var(--purple) 18%, transparent), transparent 75%); background-clip: text; color: transparent; font-size: clamp(5rem, 15vw, 14rem); font-weight: 800; letter-spacing: -.085em; line-height: .82; text-align: center; }
-.footerBottom { display: flex; justify-content: space-between; gap: 20px; padding-top: 30px; border-top: 1px solid var(--line); color: var(--muted); font-size: .65rem; }
+.footerWord { pointer-events: none; user-select: none; margin-top: 35px; background: linear-gradient(180deg, color-mix(in srgb, var(--purple) 18%, transparent), transparent 75%); background-clip: text; color: transparent; font-size: clamp(5rem, 15vw, 14rem); font-weight: 800; letter-spacing: -.085em; line-height: .82; text-align: center; }
+.footerBottom { position: relative; z-index: 2; display: flex; justify-content: space-between; gap: 20px; padding-top: 30px; border-top: 1px solid var(--line); color: var(--muted); font-size: .65rem; }
 
 .site[dir="rtl"] .sectionLead,
 .site[dir="rtl"] .facilityGrid,

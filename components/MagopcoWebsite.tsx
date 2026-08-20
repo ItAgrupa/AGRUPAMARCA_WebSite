@@ -138,7 +138,7 @@ const content = {
       button: "Contact MAGOPCO",
       back: "Return to CEO profile",
     },
-    footer: ["Berry expertise rooted in Souss-Massa.", "Platform", "Process", "Agrupa Marca", "CEO profile", "All rights reserved."],
+    footer: ["Berry expertise rooted in Souss-Massa.", "Platform", "Privacy policy", "Agrupa Marca", "CEO profile", "All rights reserved."],
   },
   ES: {
     nav: ["Plataforma", "Producto", "Proceso", "Instalación", "Alianza"],
@@ -217,7 +217,7 @@ const content = {
       button: "Contactar con MAGOPCO",
       back: "Volver al perfil de la CEO",
     },
-    footer: ["Experiencia en berries con raíces en Souss-Massa.", "Plataforma", "Proceso", "Agrupa Marca", "Perfil de la CEO", "Todos los derechos reservados."],
+    footer: ["Experiencia en berries con raíces en Souss-Massa.", "Plataforma", "Política de privacidad", "Agrupa Marca", "Perfil de la CEO", "Todos los derechos reservados."],
   },
   AR: {
     nav: ["المنصة", "المنتج", "المراحل", "المحطة", "الشراكة"],
@@ -296,7 +296,7 @@ const content = {
       button: "تواصل مع ماغوبكو",
       back: "العودة إلى ملف الرئيسة التنفيذية",
     },
-    footer: ["خبرة في التوت بجذور في سوس ماسة.", "المنصة", "المراحل", "أغروبا ماركا", "ملف الرئيسة التنفيذية", "جميع الحقوق محفوظة."],
+    footer: ["خبرة في التوت بجذور في سوس ماسة.", "المنصة", "سياسة الخصوصية", "أغروبا ماركا", "ملف الرئيسة التنفيذية", "جميع الحقوق محفوظة."],
   },
 } as const;
 
@@ -564,9 +564,9 @@ export function MagopcoWebsite() {
         <div className={styles.footerTop}>
           <a className={styles.footerBrand} href="#top"><Image src="/images/magopco/magopco-logo.png" alt="MAGOPCO" width={2000} height={2000} /></a>
           <p>{copy.footer[0]}</p>
-          <nav aria-label="Footer navigation"><a href="#platform">{copy.footer[1]}</a><a href="#process">{copy.footer[2]}</a><Link href={`/magopco/contact/?lang=${language.toLowerCase()}`}>{copy.cta.button}</Link><Link href="/agrupa-marca/">{copy.footer[3]}</Link><Link href="/">{copy.footer[4]}</Link></nav>
+          <nav aria-label="Footer navigation"><a href="#top">{copy.footer[1]}</a><Link href={`/magopco/privacy-policy/?lang=${language.toLowerCase()}`}>{copy.footer[2]}</Link><Link href={`/magopco/contact/?lang=${language.toLowerCase()}`}>{copy.cta.button}</Link><Link href="/agrupa-marca/">{copy.footer[3]}</Link><Link href="/">{copy.footer[4]}</Link></nav>
         </div>
-        <div className={styles.footerWord}>MAGOPCO</div>
+        <div className={styles.footerWord} aria-hidden="true">MAGOPCO</div>
         <div className={styles.footerBottom}><span>© {new Date().getFullYear()} MAGOPCO. {copy.footer[5]}</span><span>Chtouka · Souss-Massa · Morocco</span></div>
       </footer>
     </main>
