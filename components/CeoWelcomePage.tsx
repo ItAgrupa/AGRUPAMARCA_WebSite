@@ -1,16 +1,25 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { media } from "@/data/media";
 
 export function CeoWelcomePage() {
-  const [message, setMessage] = useState("");
+  const destinationRef = useRef<HTMLElement>(null);
+  const [destinationVisible, setDestinationVisible] = useState(false);
 
-  function showComingSoon(site: string) {
-    setMessage(`${site} website is coming soon.`);
-  }
+  useEffect(() => {
+    const panel = destinationRef.current;
+    if (!panel) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setDestinationVisible(true);
+        observer.disconnect();
+      }
+    }, { threshold: .25 });
+    observer.observe(panel);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <main className="ceo-page" aria-labelledby="welcome-title">
@@ -114,17 +123,16 @@ export function CeoWelcomePage() {
           </section>
         </div>
 
-        <section className="destination-panel" id="website-destinations" aria-labelledby="destination-title">
+        <section ref={destinationRef} className={`destination-panel ${destinationVisible ? "is-visible" : ""}`} id="website-destinations" aria-labelledby="destination-title">
           <p className="section-kicker">Website destinations</p>
           <h2 id="destination-title">Continue to the companies shaped by this leadership.</h2>
           <p>
             You are in the right place. After discovering Sara Mouhsine Carvajal's leadership profile, choose the company website you want to visit.
           </p>
           <div className="profile-actions destination-actions" aria-label="Website choices">
-            <Link className="website-link-button" href="/agrupa-marca">Visit Agrupa Marca website</Link>
-            <button type="button" onClick={() => showComingSoon("MAGOPCO")}>Visit MAGOPCO website</button>
+            <a className="website-link-button" href="/agrupa-marca/"><span>Visit Agrupa Marca website</span><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8" /></svg></i></a>
+            <a className="website-link-button" href="/magopco/"><span>Visit MAGOPCO website</span><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8" /></svg></i></a>
           </div>
-          <p className="coming-soon-message" role="status" aria-live="polite">{message}</p>
         </section>
       </section>
     </main>

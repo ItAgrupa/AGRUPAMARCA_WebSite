@@ -243,6 +243,8 @@ p {
 }
 
 .destination-panel {
+  position: relative;
+  overflow: hidden;
   margin: 0 0 clamp(3rem, 7vw, 6rem);
   padding: clamp(1.8rem, 4vw, 3rem);
   border-radius: 28px;
@@ -250,6 +252,49 @@ p {
   color: white;
   box-shadow: 0 24px 70px rgba(18, 60, 46, .18);
 }
+
+.destination-panel::before {
+  content: "";
+  position: absolute;
+  right: -12%;
+  bottom: -65%;
+  width: 560px;
+  height: 560px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(116, 50, 143, .3), rgba(116, 50, 143, 0) 68%);
+  opacity: 0;
+  transform: scale(.65);
+  transition: opacity 1.2s ease, transform 1.4s cubic-bezier(.2, .7, .2, 1);
+  pointer-events: none;
+}
+
+.destination-panel.is-visible::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.destination-panel .section-kicker,
+.destination-panel h2,
+.destination-panel > p,
+.destination-panel .destination-actions {
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .75s ease, transform .75s cubic-bezier(.2, .75, .2, 1);
+}
+
+.destination-panel.is-visible .section-kicker,
+.destination-panel.is-visible h2,
+.destination-panel.is-visible > p,
+.destination-panel.is-visible .destination-actions {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.destination-panel.is-visible h2 { transition-delay: .08s; }
+.destination-panel.is-visible > p { transition-delay: .16s; }
+.destination-panel.is-visible .destination-actions { transition-delay: .24s; }
 
 .destination-panel .section-kicker {
   color: #E6D0AF;
@@ -273,14 +318,88 @@ p {
 
 .destination-actions button,
 .destination-actions .website-link-button {
-  background: white;
-  color: var(--green);
+  position: relative;
+  min-width: 315px;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 6px 7px 6px 24px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, .28);
+  background: #00833e;
+  color: white;
+  box-shadow: 0 16px 35px rgba(0, 24, 13, .24);
 }
 
 .destination-actions button:nth-child(2),
-.destination-actions .website-link-button + button {
-  background: var(--berry);
+.destination-actions .website-link-button + .website-link-button {
+  background: #74328f;
   color: white;
+  box-shadow: 0 16px 35px rgba(40, 8, 49, .3);
+}
+
+.destination-actions .website-link-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -45%;
+  width: 32%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .24), transparent);
+  transform: skewX(-18deg);
+}
+
+.destination-panel.is-visible .destination-actions .website-link-button::before {
+  animation: destination-shine 1.2s .65s ease forwards;
+}
+
+.destination-actions .website-link-button:nth-child(2)::before {
+  animation-delay: .82s;
+}
+
+.destination-actions .website-link-button i {
+  position: relative;
+  z-index: 1;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  flex: 0 0 42px;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .94);
+  color: #006d34;
+  transition: transform .3s ease;
+}
+
+.destination-actions .website-link-button + .website-link-button i {
+  color: #74328f;
+}
+
+.destination-actions .website-link-button svg {
+  width: 19px;
+  height: 19px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.destination-actions .website-link-button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 48px rgba(0, 24, 13, .3);
+}
+
+.destination-actions .website-link-button + .website-link-button:hover {
+  box-shadow: 0 22px 48px rgba(40, 8, 49, .38);
+}
+
+.destination-actions .website-link-button:hover i {
+  transform: rotate(8deg) scale(1.06);
+}
+
+@keyframes destination-shine {
+  from { left: -45%; }
+  to { left: 120%; }
 }
 
 .destination-panel .coming-soon-message {
@@ -498,6 +617,10 @@ p {
     width: 100%;
   }
 
+  .destination-actions .website-link-button {
+    min-width: 0;
+  }
+
   .image-story {
     grid-template-columns: 1fr;
   }
@@ -509,6 +632,23 @@ p {
   .quick-facts div {
     grid-template-columns: 1fr;
     gap: .25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .destination-panel .section-kicker,
+  .destination-panel h2,
+  .destination-panel > p,
+  .destination-panel .destination-actions {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .destination-panel::before,
+  .destination-actions .website-link-button::before {
+    animation: none !important;
+    transition: none;
   }
 }
 
