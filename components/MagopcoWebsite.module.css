@@ -211,6 +211,7 @@
 .hero {
   position: relative;
   min-height: clamp(700px, 88svh, 820px);
+  overflow: hidden;
   display: flex;
   align-items: center;
   padding: 112px max(6vw, 48px) 116px;
@@ -219,7 +220,16 @@
   color: white;
 }
 
-.heroImage { z-index: -3; object-fit: cover; object-position: center; transform: scale(1.025); animation: heroDrift 18s ease-in-out infinite alternate; }
+.heroSlides { position: absolute; z-index: -3; inset: 0; overflow: hidden; }
+.heroImage {
+  z-index: 0;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0;
+  transform: scale(1.025);
+  transition: opacity 1.45s ease, transform 7.5s cubic-bezier(.2, .7, .2, 1);
+}
+.heroImageActive { z-index: 1; opacity: 1; transform: scale(1.085); }
 .heroOverlay {
   position: absolute;
   z-index: -2;
@@ -274,6 +284,35 @@
 .heroSignals span + span { border-inline-start: 1px solid rgba(255, 255, 255, .14); }
 .heroSignals b { color: white; font-size: .58rem; letter-spacing: .12em; }
 
+.heroPagination {
+  position: absolute;
+  z-index: 4;
+  bottom: 27px;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border: 1px solid rgba(255, 255, 255, .12);
+  border-radius: 999px;
+  background: rgba(24, 8, 29, .36);
+  box-shadow: 0 10px 28px rgba(13, 4, 16, .18);
+  backdrop-filter: blur(14px);
+  transform: translateX(-50%);
+}
+.heroPagination button {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .42);
+  cursor: pointer;
+  transition: width .35s ease, background-color .35s ease, transform .25s ease;
+}
+.heroPagination button:hover { background: rgba(255, 255, 255, .78); transform: scale(1.08); }
+.heroPagination .heroPaginationActive { width: 34px; background: white; }
+
 .scroll { position: absolute; z-index: 2; bottom: 25px; left: max(4vw, 32px); width: 34px; height: 50px; display: flex; justify-content: center; padding-top: 7px; border: 1px solid rgba(255, 255, 255, .3); border-radius: 999px; }
 .scroll span { width: 5px; height: 10px; border-radius: 999px; background: white; animation: scrollDrop 1.9s ease infinite; }
 
@@ -285,8 +324,11 @@
 .berryMark i:nth-child(5) { --n: 4; }
 .berryMark i:nth-child(6) { --n: 5; }
 .berryMark i:nth-child(7) { --n: 6; }
-.heroBerry { position: absolute; z-index: -1; right: 5vw; top: 13vh; width: 360px; height: 360px; color: rgba(255, 255, 255, .1); animation: berryRotate 30s linear infinite; }
-.heroBerry i { top: calc(50% - 41px); left: calc(50% - 41px); width: 82px; height: 82px; transform: rotate(calc(var(--n) * 51.43deg)) translateY(-122px) rotate(calc(var(--n) * -51.43deg)); }
+.heroSeal { position: absolute; z-index: 3; right: max(4vw, 32px); bottom: 132px; width: 106px; height: 106px; display: grid; place-items: center; color: white; }
+.heroSeal strong { position: absolute; z-index: 2; max-width: 66px; overflow: hidden; color: white; font-family: var(--font-instrument), serif; font-size: .7rem; font-weight: 400; letter-spacing: .06em; line-height: 1; text-overflow: clip; }
+.heroSeal svg { width: 100%; height: 100%; overflow: visible; animation: berryRotate 20s linear infinite; }
+.heroSeal path { fill: transparent; }
+.heroSeal text { fill: rgba(255, 255, 255, .9); font-size: 7.1px; font-weight: 780; letter-spacing: 1.18px; text-transform: uppercase; }
 
 .platform { padding: 130px 0; background: var(--ivory); }
 .sectionLead { display: grid; grid-template-columns: 1.05fr .72fr; align-items: end; gap: 9vw; }
@@ -303,9 +345,9 @@
 .platformMedia { position: relative; height: 270px; overflow: hidden; isolation: isolate; }
 .platformMedia::after { content: ""; position: absolute; z-index: 1; inset: 0; background: linear-gradient(0deg, rgba(28, 8, 34, .44), transparent 55%); }
 .platformMedia img { z-index: -1; object-fit: cover; transition: transform .85s cubic-bezier(.2, .72, .2, 1), filter .6s ease; }
-.platformCards article:first-child .platformMedia img { object-position: center 54%; }
-.platformCards article:nth-child(2) .platformMedia img { object-position: center 45%; }
-.platformCards article:nth-child(3) .platformMedia img { object-position: center; }
+.platformCards article:first-child .platformMedia img { object-position: center 51%; }
+.platformCards article:nth-child(2) .platformMedia img { object-position: center; }
+.platformCards article:nth-child(3) .platformMedia img { object-position: center 52%; }
 .platformCards article:hover .platformMedia img { transform: scale(1.055); filter: saturate(1.07) contrast(1.02); }
 .platformNumber { position: absolute; z-index: 2; top: 18px; left: 18px; min-width: 45px; height: 45px; display: grid; place-items: center; border: 1px solid rgba(255, 255, 255, .42); border-radius: 50%; background: rgba(35, 13, 40, .4); color: white; font-size: .62rem; font-weight: 850; letter-spacing: .11em; backdrop-filter: blur(12px); }
 .platformAccent { position: absolute; z-index: 2; right: 20px; bottom: 18px; width: 49px; height: 8px; border-radius: 999px; background: white; box-shadow: -13px 0 0 var(--purple); transition: width .4s ease, transform .4s ease; }
@@ -524,6 +566,8 @@
   .languagePanel { top: 51px; width: 190px; }
   .hero { min-height: 100svh; padding: 105px 20px 190px; align-items: center; }
   .heroImage { object-position: 61% center; }
+  .heroSlides .heroImage:nth-child(2) { object-position: 54% center; }
+  .heroSlides .heroImage:nth-child(3) { object-position: 50% center; }
   .heroOverlay { background: linear-gradient(0deg, rgba(24, 7, 29, .92) 0%, rgba(30, 8, 36, .58) 68%, rgba(30, 8, 36, .32)); }
   .heroContent { width: 100%; min-width: 0; max-width: 100%; text-align: center; }
   .hero .eyebrow { font-size: .57rem; }
@@ -538,7 +582,8 @@
   .heroSignals { right: 12px; bottom: 16px; left: 12px; display: grid; grid-template-columns: repeat(3, 1fr); }
   .heroSignals span { padding: 12px 8px; font-size: .54rem; line-height: 1.35; }
   .heroSignals span + span { border-inline-start: 1px solid rgba(255,255,255,.14); }
-  .heroBerry { display: none; }
+  .heroPagination { bottom: 102px; }
+  .heroSeal { display: none; }
   .platform { padding: 85px 0; }
   .sectionLead h2,
   .produce h2,
@@ -607,4 +652,5 @@
   .site *,
   .site *::before,
   .site *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+  .heroImage { transform: none; transition: none; }
 }

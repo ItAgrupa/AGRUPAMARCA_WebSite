@@ -32,16 +32,31 @@ const berryProductImages = [
 
 const platformCardImages = [
   {
-    src: "/images/magopco/platform-harvest.jpg",
-    alt: "A hand holding freshly harvested blueberries at a farm",
+    src: "/images/magopco/workers-harvest-berries.jpg",
+    alt: "Hands carefully harvesting ripe blueberries from the plant",
   },
   {
-    src: "/images/magopco/platform-packing.jpg",
-    alt: "Workers carefully sorting berries on a packing line",
+    src: "/images/magopco/built-for-berries.png",
+    alt: "A MAGOPCO team member inspecting crates of blueberries in a controlled facility",
   },
   {
-    src: "/images/magopco/magopco-station-opening.jpg",
-    alt: "MAGOPCO station inauguration celebrating Moroccan and Chilean collaboration",
+    src: "/images/magopco/connected-expertise.png",
+    alt: "MAGOPCO station inauguration plaque representing Moroccan and Chilean collaboration",
+  },
+] as const;
+
+const heroSlides = [
+  {
+    src: "/images/magopco/magopco-at-farms.png",
+    alt: "MAGOPCO team working among blueberry plants",
+  },
+  {
+    src: "/images/magopco/blueberries-farm-magopco.jpg",
+    alt: "Blueberry plants growing inside a protected farm",
+  },
+  {
+    src: "/images/magopco/img-packing-blueberry-station.jpg",
+    alt: "Fresh blueberries moving through the packing station",
   },
 ] as const;
 
@@ -298,12 +313,23 @@ function BerryMark({ className = "" }: { className?: string }) {
   return <span className={`${styles.berryMark} ${className}`} aria-hidden="true">{Array.from({ length: 7 }, (_, index) => <i key={index} />)}</span>;
 }
 
+function HeroSeal() {
+  return <span className={styles.heroSeal} aria-hidden="true">
+    <strong>MAGOPCO</strong>
+    <svg viewBox="0 0 150 150">
+      <defs><path id="magopco-hero-circle" d="M 75,25 a 50,50 0 1,1 0,100 a 50,50 0 1,1 0,-100" /></defs>
+      <text textLength="312" lengthAdjust="spacing"><textPath href="#magopco-hero-circle" startOffset="0%">EXCELLENCE MONDIALE • AGRICULTURE DE PRÉCISION • </textPath></text>
+    </svg>
+  </span>;
+}
+
 export function MagopcoWebsite() {
   const [language, setLanguage] = useState<LanguageCode>("EN");
   const [languageOpen, setLanguageOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
   const [activeSection, setActiveSection] = useState("platform");
+  const [heroSlide, setHeroSlide] = useState(0);
   const copy = content[language];
   const currentLanguage = languages.find((item) => item.code === language) ?? languages[0];
   const isArabic = language === "AR";
@@ -313,6 +339,17 @@ export function MagopcoWebsite() {
     const savedTheme = window.localStorage.getItem("magopco-theme");
     if (savedLanguage && languages.some((item) => item.code === savedLanguage)) setLanguage(savedLanguage);
     if (savedTheme === "dark") setDarkMode(true);
+  }, []);
+
+  useEffect(() => {
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (reducedMotion.matches) return;
+
+    const timer = window.setInterval(() => {
+      setHeroSlide((current) => (current + 1) % heroSlides.length);
+    }, 6500);
+
+    return () => window.clearInterval(timer);
   }, []);
 
   useEffect(() => {
@@ -369,9 +406,20 @@ export function MagopcoWebsite() {
       </header>
 
       <section className={styles.hero} id="top">
-        <Image className={styles.heroImage} src="/images/magopco/magopco-farm.jfif" alt="Blueberries growing at a MAGOPCO partner farm" fill sizes="100vw" priority />
+        <div className={styles.heroSlides} aria-hidden="true">
+          {heroSlides.map((slide, index) => <Image
+            className={`${styles.heroImage} ${index === heroSlide ? styles.heroImageActive : ""}`}
+            src={slide.src}
+            alt=""
+            fill
+            sizes="100vw"
+            quality={100}
+            priority={index === 0}
+            key={slide.src}
+          />)}
+        </div>
         <div className={styles.heroOverlay} />
-        <BerryMark className={styles.heroBerry} />
+        <HeroSeal />
         <div className={styles.heroContent}>
           <p className={styles.eyebrow}>{copy.hero.eyebrow}</p>
           <h1>{copy.hero.line1}<br /><span>{copy.hero.line2}</span><br />{copy.hero.line3}</h1>
@@ -382,6 +430,16 @@ export function MagopcoWebsite() {
           </div>
         </div>
         <div className={styles.heroSignals}>{copy.hero.signals.map((signal, index) => <span key={signal}><b>0{index + 1}</b>{signal}</span>)}</div>
+        <div className={styles.heroPagination} aria-label="Hero image gallery">
+          {heroSlides.map((slide, index) => <button
+            type="button"
+            className={index === heroSlide ? styles.heroPaginationActive : ""}
+            aria-label={`Show hero image ${index + 1}: ${slide.alt}`}
+            aria-current={index === heroSlide ? "true" : undefined}
+            onClick={() => setHeroSlide(index)}
+            key={slide.src}
+          />)}
+        </div>
         <a className={styles.scroll} href="#platform" aria-label={copy.hero.primary}><span /></a>
       </section>
 
