@@ -453,8 +453,32 @@
 .cta .eyebrow { color: #d9a9e9; }
 .cta h2 { font-size: clamp(4rem, 7vw, 7.2rem); }
 .ctaContent > p:not(.eyebrow) { max-width: 590px; margin: 1.6rem auto 0; color: rgba(255, 255, 255, .66); line-height: 1.8; }
-.ctaContent > div { display: flex; align-items: center; justify-content: center; gap: 25px; margin-top: 2.3rem; }
-.ctaContent > div > a:last-child { padding-bottom: 3px; border-bottom: 1px solid rgba(255, 255, 255, .5); color: rgba(255, 255, 255, .78); font-size: .75rem; font-weight: 720; }
+.ctaActions { display: flex; align-items: center; justify-content: center; gap: 22px; margin-top: 2.45rem; }
+.contactButton {
+  min-width: 248px;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 6px 7px 6px 21px;
+  border: 1px solid rgba(255, 255, 255, .72);
+  border-radius: 999px;
+  background: linear-gradient(135deg, #fff 0%, #f5edf8 100%);
+  color: var(--plum) !important;
+  box-shadow: 0 18px 44px rgba(11, 3, 14, .24), inset 0 1px 0 white;
+  text-align: start;
+  transition: transform .35s cubic-bezier(.2, .72, .2, 1), box-shadow .35s ease, border-color .35s ease;
+}
+.contactButton strong { font-size: .76rem; font-weight: 820; letter-spacing: -.01em; }
+.contactButton i { width: 46px; height: 46px; display: grid; flex: 0 0 46px; place-items: center; border-radius: 50%; background: var(--purple); color: white; box-shadow: 0 8px 18px rgba(80, 25, 96, .23); transition: transform .35s ease, background-color .3s ease; }
+.contactButton svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.contactButton:hover { transform: translateY(-3px); border-color: white; box-shadow: 0 25px 55px rgba(11, 3, 14, .32), inset 0 1px 0 white; }
+.contactButton:hover i { background: var(--purple-bright); transform: rotate(8deg) scale(1.04); }
+.ctaBack { display: inline-flex; align-items: center; gap: 9px; padding: 10px 0 8px; border-bottom: 1px solid rgba(255, 255, 255, .38); color: rgba(255, 255, 255, .72) !important; font-size: .73rem; font-weight: 720; transition: color .25s ease, border-color .25s ease; }
+.ctaBack span { font-size: 1rem; transition: transform .25s ease; }
+.ctaBack:hover { border-color: white; color: white !important; }
+.ctaBack:hover span { transform: translate(3px, -3px); }
 .ctaBerryOne,
 .ctaBerryTwo { position: absolute; color: rgba(255, 255, 255, .055); }
 .ctaBerryOne { top: -110px; left: -90px; width: 380px; height: 380px; animation: berryRotate 38s linear infinite; }
@@ -482,6 +506,10 @@
 .site[dir="rtl"] .facilityCopy,
 .site[dir="rtl"] .partnershipCopy { text-align: right; }
 .site[dir="rtl"] .heroActions { justify-content: flex-start; }
+.site[dir="rtl"] .heroOverlay { transform: scaleX(-1); }
+.site[dir="rtl"] .heroSeal { right: auto; left: max(4vw, 32px); }
+.site[dir="rtl"] .brand,
+.site[dir="rtl"] .language > button { direction: ltr; }
 .site[dir="rtl"] .languagePanel { right: auto; left: 0; }
 .site[dir="rtl"] .platformNumber { right: 18px; left: auto; }
 .site[dir="rtl"] .platformAccent { right: auto; left: 20px; }
@@ -635,7 +663,8 @@
   .partnershipCopy > div { align-items: flex-start; }
   .cta { min-height: 590px; padding: 90px 20px; }
   .cta h2 { font-size: clamp(3.4rem, 15vw, 4.7rem); }
-  .ctaContent > div { flex-direction: column; }
+  .ctaActions { flex-direction: column; }
+  .contactButton { width: min(100%, 270px); min-width: 0; }
   .footer { padding-top: 60px; }
   .footerBottom { flex-direction: column; align-items: center; text-align: center; }
 }

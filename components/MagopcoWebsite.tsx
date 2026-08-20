@@ -134,6 +134,7 @@ const content = {
       eyebrow: "Build what comes next",
       title: "Let’s start a berry conversation.",
       text: "For commercial, institutional or partnership enquiries, connect with the team behind MAGOPCO.",
+      buttonLabel: "Commercial · Institutional · Partnership",
       button: "Contact MAGOPCO",
       back: "Return to CEO profile",
     },
@@ -212,6 +213,7 @@ const content = {
       eyebrow: "Construir el siguiente paso",
       title: "Hablemos de berries.",
       text: "Para consultas comerciales, institucionales o de colaboración, contacte con el equipo de MAGOPCO.",
+      buttonLabel: "Comercial · Institucional · Alianzas",
       button: "Contactar con MAGOPCO",
       back: "Volver al perfil de la CEO",
     },
@@ -290,6 +292,7 @@ const content = {
       eyebrow: "لنصنع الخطوة المقبلة",
       title: "لنبدأ حواراً حول التوت.",
       text: "للاستفسارات التجارية أو المؤسساتية أو فرص الشراكة، تواصلوا مع فريق ماغوبكو.",
+      buttonLabel: "تجاري · مؤسساتي · شراكات",
       button: "تواصل مع ماغوبكو",
       back: "العودة إلى ملف الرئيسة التنفيذية",
     },
@@ -548,7 +551,12 @@ export function MagopcoWebsite() {
         <BerryMark className={styles.ctaBerryOne} /><BerryMark className={styles.ctaBerryTwo} />
         <div className={styles.ctaContent}>
           <p className={styles.eyebrow}>{copy.cta.eyebrow}</p><h2>{copy.cta.title}</h2><p>{copy.cta.text}</p>
-          <div><a className={styles.primaryButton} href="mailto:info@agrupamarca.com?subject=MAGOPCO%20partnership%20enquiry"><span>{copy.cta.button}</span><i><ArrowIcon /></i></a><Link href="/">{copy.cta.back}</Link></div>
+          <div className={styles.ctaActions}>
+            <Link className={styles.contactButton} href={`/magopco/contact/?lang=${language.toLowerCase()}`}>
+              <strong>{copy.cta.button}</strong><i><ArrowIcon /></i>
+            </Link>
+            <Link className={styles.ctaBack} href="/">{copy.cta.back}<span aria-hidden="true">↗</span></Link>
+          </div>
         </div>
       </section>
 
@@ -556,7 +564,7 @@ export function MagopcoWebsite() {
         <div className={styles.footerTop}>
           <a className={styles.footerBrand} href="#top"><Image src="/images/magopco/magopco-logo.png" alt="MAGOPCO" width={2000} height={2000} /></a>
           <p>{copy.footer[0]}</p>
-          <nav aria-label="Footer navigation"><a href="#platform">{copy.footer[1]}</a><a href="#process">{copy.footer[2]}</a><Link href="/agrupa-marca/">{copy.footer[3]}</Link><Link href="/">{copy.footer[4]}</Link></nav>
+          <nav aria-label="Footer navigation"><a href="#platform">{copy.footer[1]}</a><a href="#process">{copy.footer[2]}</a><Link href={`/magopco/contact/?lang=${language.toLowerCase()}`}>{copy.cta.button}</Link><Link href="/agrupa-marca/">{copy.footer[3]}</Link><Link href="/">{copy.footer[4]}</Link></nav>
         </div>
         <div className={styles.footerWord}>MAGOPCO</div>
         <div className={styles.footerBottom}><span>© {new Date().getFullYear()} MAGOPCO. {copy.footer[5]}</span><span>Chtouka · Souss-Massa · Morocco</span></div>
