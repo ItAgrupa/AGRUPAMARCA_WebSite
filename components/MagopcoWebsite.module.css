@@ -486,7 +486,17 @@
 .ctaBerryOne i { top: calc(50% - 44px); left: calc(50% - 44px); width: 88px; height: 88px; transform: rotate(calc(var(--n) * 51.43deg)) translateY(-128px) rotate(calc(var(--n) * -51.43deg)); }
 .ctaBerryTwo i { top: calc(50% - 29px); left: calc(50% - 29px); width: 58px; height: 58px; transform: rotate(calc(var(--n) * 51.43deg)) translateY(-84px) rotate(calc(var(--n) * -51.43deg)); }
 
-.footer { position: relative; padding: 80px max(4vw, 28px) 30px; overflow: hidden; background: var(--surface); }
+.footer { position: relative; padding: 64px max(4vw, 28px) 30px; overflow: hidden; background: var(--surface); }
+.certifications { position: relative; z-index: 2; width: min(940px, 100%); margin: 0 auto 54px; text-align: center; }
+.certifications > p { margin: 0 0 25px; color: var(--muted); font-size: .54rem; font-weight: 750; letter-spacing: .15em; text-transform: uppercase; }
+.certificationViewport { overflow: hidden; padding: 4px 0; mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent); -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent); }
+.certificationTrack { width: max-content; display: flex; animation: certificationGlide 40s linear infinite; will-change: transform; }
+.certificationGroup { display: flex; align-items: center; gap: 38px; padding-inline-end: 38px; }
+.certificationMark { position: relative; width: 112px; height: 58px; display: block; flex: 0 0 112px; opacity: .78; transition: opacity .25s ease, filter .25s ease, transform .25s ease; }
+.certificationMark img { object-fit: contain; object-position: center; }
+.certificationMark:hover { opacity: 1; filter: saturate(1.05); transform: translateY(-1px); }
+.certificationViewport:hover .certificationTrack { animation-play-state: paused; }
+.visuallyHidden { position: absolute; width: 1px; height: 1px; overflow: hidden; padding: 0; margin: -1px; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .footerTop { position: relative; z-index: 2; width: min(1100px, 100%); display: grid; justify-items: center; gap: 18px; margin: 0 auto; text-align: center; }
 .footerBrand { width: 180px; height: 158px; display: grid; place-items: center; }
 .footerBrand img { position: static; width: 154px; height: 154px; object-fit: contain; }
@@ -496,9 +506,14 @@
 .footerWord { pointer-events: none; user-select: none; margin-top: 35px; background: linear-gradient(180deg, color-mix(in srgb, var(--purple) 18%, transparent), transparent 75%); background-clip: text; color: transparent; font-size: clamp(5rem, 15vw, 14rem); font-weight: 800; letter-spacing: -.085em; line-height: .82; text-align: center; }
 .footerBottom { position: relative; z-index: 2; display: flex; justify-content: space-between; gap: 20px; padding-top: 30px; border-top: 1px solid var(--line); color: var(--muted); font-size: .65rem; }
 
+@keyframes certificationGlide {
+  to { transform: translateX(-50%); }
+}
+
 .site[dir="rtl"] .sectionLead,
 .site[dir="rtl"] .facilityGrid,
 .site[dir="rtl"] .partnershipCard { direction: rtl; }
+.site[dir="rtl"] .certificationTrack { animation-direction: reverse; }
 .site[dir="rtl"] .heroContent,
 .site[dir="rtl"] .produceHead,
 .site[dir="rtl"] .productLabel,
@@ -666,6 +681,9 @@
   .ctaActions { flex-direction: column; }
   .contactButton { width: min(100%, 270px); min-width: 0; }
   .footer { padding-top: 60px; }
+  .certifications { margin-bottom: 44px; }
+  .certificationGroup { gap: 28px; padding-inline-end: 28px; }
+  .certificationMark { width: 94px; height: 50px; flex-basis: 94px; }
   .footerBottom { flex-direction: column; align-items: center; text-align: center; }
 }
 

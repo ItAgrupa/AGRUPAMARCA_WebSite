@@ -60,6 +60,15 @@ const heroSlides = [
   },
 ] as const;
 
+const certificationMarks = [
+  { src: "/images/magopco/certifications/brcgs-food-safety.webp", name: "BRCGS Food Safety" },
+  { src: "/images/magopco/certifications/ifs.png", name: "IFS" },
+  { src: "/images/magopco/certifications/sedex.png", name: "Sedex" },
+  { src: "/images/magopco/certifications/smeta.png", name: "SMETA" },
+  { src: "/images/magopco/certifications/globalgap.png", name: "GLOBALG.A.P." },
+  { src: "/images/magopco/certifications/grasp.png", name: "GRASP" },
+] as const;
+
 const content = {
   EN: {
     nav: ["Platform", "Produce", "Process", "Facility", "Partnership"],
@@ -138,7 +147,7 @@ const content = {
       button: "Contact MAGOPCO",
       back: "Return to CEO profile",
     },
-    footer: ["Berry expertise rooted in Souss-Massa.", "Platform", "Privacy policy", "Agrupa Marca", "CEO profile", "All rights reserved."],
+    footer: ["Berry expertise rooted in Souss-Massa.", "Platform", "Privacy policy", "Agrupa Marca", "CEO profile", "All rights reserved.", "Certifications & responsible standards"],
   },
   ES: {
     nav: ["Plataforma", "Producto", "Proceso", "Instalación", "Alianza"],
@@ -217,7 +226,7 @@ const content = {
       button: "Contactar con MAGOPCO",
       back: "Volver al perfil de la CEO",
     },
-    footer: ["Experiencia en berries con raíces en Souss-Massa.", "Plataforma", "Política de privacidad", "Agrupa Marca", "Perfil de la CEO", "Todos los derechos reservados."],
+    footer: ["Experiencia en berries con raíces en Souss-Massa.", "Plataforma", "Política de privacidad", "Agrupa Marca", "Perfil de la CEO", "Todos los derechos reservados.", "Certificaciones y estándares responsables"],
   },
   AR: {
     nav: ["المنصة", "المنتج", "المراحل", "المحطة", "الشراكة"],
@@ -296,7 +305,7 @@ const content = {
       button: "تواصل مع ماغوبكو",
       back: "العودة إلى ملف الرئيسة التنفيذية",
     },
-    footer: ["خبرة في التوت بجذور في سوس ماسة.", "المنصة", "سياسة الخصوصية", "أغروبا ماركا", "ملف الرئيسة التنفيذية", "جميع الحقوق محفوظة."],
+    footer: ["خبرة في التوت بجذور في سوس ماسة.", "المنصة", "سياسة الخصوصية", "أغروبا ماركا", "ملف الرئيسة التنفيذية", "جميع الحقوق محفوظة.", "الشهادات ومعايير المسؤولية"],
   },
 } as const;
 
@@ -561,6 +570,17 @@ export function MagopcoWebsite() {
       </section>
 
       <footer className={styles.footer}>
+        <section className={styles.certifications} aria-labelledby="magopco-certifications-title">
+          <p id="magopco-certifications-title">{copy.footer[6]}</p>
+          <ul className={styles.visuallyHidden}>{certificationMarks.map((mark) => <li key={mark.name}>{mark.name}</li>)}</ul>
+          <div className={styles.certificationViewport} aria-hidden="true">
+            <div className={styles.certificationTrack}>
+              {[0, 1].map((group) => <div className={styles.certificationGroup} key={group}>
+                {certificationMarks.map((mark) => <span className={styles.certificationMark} key={`${group}-${mark.name}`}><Image src={mark.src} alt="" fill sizes="112px" /></span>)}
+              </div>)}
+            </div>
+          </div>
+        </section>
         <div className={styles.footerTop}>
           <a className={styles.footerBrand} href="#top"><Image src="/images/magopco/magopco-logo.png" alt="MAGOPCO" width={2000} height={2000} /></a>
           <p>{copy.footer[0]}</p>
